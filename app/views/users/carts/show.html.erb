@@ -1,0 +1,37 @@
+<div class="container mt-5 text-gold">
+  <h1 class="mb-5 text-center title-gold">Your Cart</h1>
+  <% if @cart_items.present? && @cart_items.any? %>
+    <table class="table-custom mt-3 text-gold border-gold">
+      <thead>
+        <tr class="text-center border-bottom border-gold">
+          <th>Product</th>
+          <th>Quantity</th>
+          <th>Price</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @cart_items.each do |item| %>
+          <tr class="text-center border-bottom border-gold">
+            <td><%= item.product.name %></td>
+            <td><%= item.quantity %></td>
+            <td><%= number_to_currency(item.product.price * item.quantity) %></td>
+            <td>
+              <%= button_to "Remove", remove_from_cart_users_cart_path(item), 
+                            method: :delete, 
+                            class: "btn btn-danger btn-sm" %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    <div class="mt-4 text-center">
+      <%= button_to "Checkout", 
+                    checkout_users_cart_path(@cart), 
+                    method: :post, 
+                    class: "btn btn-primary" %>
+    </div>
+  <% else %>
+    <p class="text-gold text-center">Your cart is empty.</p>
+  <% end %>
+</div>

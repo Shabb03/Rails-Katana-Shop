@@ -1,0 +1,35 @@
+<div class="container my-4">
+  <h1>Edit Product</h1>
+
+  <%= form_with model: @product, url: admin_product_path(@product), method: :patch, local: true do |form| %>
+    <div class="mb-3">
+      <%= form.label :name, "Product Name", class: "form-label" %>
+      <%= form.text_field :name, class: "form-control", required: true %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :description, "Description", class: "form-label" %>
+      <%= form.text_area :description, rows: 3, class: "form-control", required: true %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :price, "Price", class: "form-label" %>
+      <%= form.number_field :price, step: 0.01, class: "form-control", required: true %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :stock_count, "Stock", class: "form-label" %>
+      <%= form.number_field :stock_count, class: "form-control", required: true %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :image, "Upload New Image", class: "form-label" %>
+      <%= form.file_field :image, class: "form-control" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.submit "Update Product", class: "btn btn-primary" %>
+      <%= link_to "Cancel", root_path, class: "btn btn-secondary" %>
+    </div>
+  <% end %>
+</div>

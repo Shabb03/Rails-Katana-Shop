@@ -1,0 +1,32 @@
+<nav class="navbar navbar-expand-lg" style="background-color: #1c1c1c; border-bottom: 2px solid #d4af37;">
+  <div class="container">
+    <div class="navbar-nav me-auto">
+      <%= link_to "Home", root_path, class: "nav-link text-gold", style: "font-family: 'Cinzel', serif;" %>
+      <% if logged_in? || admin_logged_in? %>
+        <% if admin_logged_in? %>
+          <%= link_to "Add Product", new_admin_product_path, class: "nav-link text-gold", style: "font-family: 'Cinzel', serif;" %>
+          <%= link_to "Add Category", new_admin_category_path, class: "nav-link text-gold", style: "font-family: 'Cinzel', serif;" %>
+        <% else %>
+          <%= link_to "Cart", users_cart_path, class: "nav-link text-gold", style: "font-family: 'Cinzel', serif;" %>
+          <%= link_to "Orders", users_orders_path, class: "nav-link text-gold", style: "font-family: 'Cinzel', serif;" %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="navbar-nav">
+      <% if logged_in? || admin_logged_in? %>
+        <%= button_to "Logout", logout_path,
+            method: :delete,
+            class: "nav-link btn btn-link text-gold",
+            form: { class: "d-inline-block" },
+            style: "font-family: 'Cinzel', serif;" %>
+      <% else %>
+        <% if admin_logged_in? %>
+          <%= link_to "Login", admin_login_path, class: "nav-link btn btn-link text-gold", style: "font-family: 'Cinzel', serif;" %>
+        <% else %>
+          <%= link_to "Login", login_path, class: "nav-link btn btn-link text-gold", style: "font-family: 'Cinzel', serif;" %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</nav>

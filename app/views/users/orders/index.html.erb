@@ -1,0 +1,32 @@
+<div class="container mt-5">
+  <h1 class="text-center mb-4">Your Orders</h1>
+  <% if @orders.any? %>
+    <% @orders.each do |order| %>
+      <div class="order mb-4 p-4 border rounded shadow-sm">
+        <h3>Order Time: <%= order.time.strftime("%d %B %Y, %H:%M") %></h3>
+        <p><strong>Status:</strong> <%= order.status %></p>
+        <p><strong>Total Price:</strong> <%= number_to_currency(order.total_price) %></p>
+
+        <h4>Items:</h4>
+        <ul class="list-unstyled">
+          <% order.order_items.each do |item| %>
+            <li class="d-flex align-items-center mb-3">
+              <% if item.product.image_url.present? %>
+                <%= image_tag item.product.image_url, alt: item.product.name, class: "img-thumbnail me-3", style: "width: 100px; height: auto;" %>
+              <% else %>
+                <%= image_tag 'placeholder.png', alt: "No Image Available", class: "img-thumbnail me-3", style: "width: 100px; height: auto;" %>
+              <% end %>
+              <div>
+                <strong><%= item.product.name %></strong><br>
+                Quantity: <%= item.quantity %><br>
+                Price: <%= number_to_currency(item.price) %>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  <% else %>
+    <p class="text-center">You have no orders.</p>
+  <% end %>
+</div>

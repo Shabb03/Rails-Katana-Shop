@@ -1,0 +1,38 @@
+<div class="container mt-5">
+  <h1>Order Details</h1>
+  <p><strong>Status:</strong> <%= @order.status %></p>
+  <p><strong>Total Price:</strong> <%= number_to_currency(@order.total_price) %></p>
+  <p><strong>Order Time:</strong> <%= @order.time.strftime("%d %B %Y, %H:%M") %></p>
+
+  <h2 class="mt-4">Order Items</h2>
+  <table class="table mt-3">
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Description</th>
+        <th>Image</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Subtotal</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @order_items.each do |item| %>
+        <tr>
+          <td><%= item.product.name %></td>
+          <td><%= item.product.description %></td>
+          <td>
+            <% if item.product.image_url.present? %>
+              <img src="<%= item.product.image_url %>" alt="<%= item.product.name %>" class="img-thumbnail" style="max-width: 100px;">
+            <% else %>
+              <p>No Image Available</p>
+            <% end %>
+          </td>
+          <td><%= number_to_currency(item.price) %></td>
+          <td><%= item.quantity %></td>
+          <td><%= number_to_currency(item.price * item.quantity) %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
